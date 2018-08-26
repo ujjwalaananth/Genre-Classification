@@ -1,0 +1,47 @@
+1) plotting decision regions, pdr from mlxtend not working: Memory Error, even when only the first 20 rows are taken
+
+using pd.get_dummies: returns df. when passed to clf, bad input shape. soln: convert to sparse csr_matrix.
+--can convert to sparse matrix using >>>y1ohe_mat=scipy.sparse.csr_matrix(y1ohe.values) where y1ohe is df
+
+/*fitting OneHotEncoder() obj to our data gives errors: cannot convert string to float
+[label encoded data to one hot, maybe?]
+UPDATE: yes, this works. returns sparse scipy.csr_matrix -> now to classification.
+can't directly pass dataframe for classification, ValueError: Shape of passed values is (1, 85259), indices imply (16, 85259)*/
+
+use np.argmax when passing matrix to classifier. arguments: matrix, axis=1 
+-need to use .values.ravel()? idk.
+UPDATE: k, classification gives a warning but works. can't test because of problem 1
+
+
+PLOTTING: 
+1)plot training data and test data [one time job]
+
+ apply sklearn.decomposition.PCA [use this] whiten=True vs [default] whiten=False
+ parameter: n_components=3
+	OR divide X into 3 dfs, reduce each to 1 component. concat.
+ obj.fit_transform(x)
+
+->we need a scatter plot.
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+>>> fig=plt.figure
+>>> ax = plt.axes(projection='3d') 
+//x1_1.shape: (85259, 1)
+//y1_le.shape: (85259,)
+//when	convert (n,1) matrix to (n, ) array
+	>>> y1_le=np.squeeze(np.asarray(y1_le))
+	>>> y1_le.shape
+	(85259,)
+
+
+>>> ax.scatter(x1_1[0:1000],x1_2[0:1000],x1_3[0:1000],c=y1_le[0:1000],depthshade=False) //first 1000 samples.
+<mpl_toolkits.mplot3d.art3d.Path3DCollection object at 0x7f3923fee8d0>
+>>> plt.show()
+
+
+2)plot decision regions [for every classifier]
+
+  decompose to 2 features. plot decision regions using plot_decision_regions
+
+
