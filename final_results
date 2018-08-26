@@ -1,0 +1,4 @@
+class 13 was usually heavily predicted, and most often predicted correctly. 
+class 0 was second-most often predicted, but with not as much accuracy.
+
+Decision trees worked best, f1 score of 17%; followed by SVM with rbf kernel, with f1 score of 13%
